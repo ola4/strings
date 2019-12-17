@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace strings
 {
+    /// <summary>
+    /// Here are all functions solving tasks
+    /// </summary>
     public static class StringUtils
     {
         // Task 1.
