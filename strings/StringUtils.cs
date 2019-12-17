@@ -14,10 +14,12 @@ namespace strings
             var normalizedStr = str.Replace(" ", "").Replace("-","").Replace(",","").Replace(".","");
 
             int strLength = normalizedStr.Length;
-            int midVal = strLength / 2;
-            for(int i = 0; i<=midVal && result; i++)
+            int midVal = strLength/2;
+
+          
+            for(int i = 0; i<midVal && result; i++)
             {
-                if(normalizedStr[i] != normalizedStr[strLength- i])
+                if(normalizedStr[i] != normalizedStr[strLength-1-i])
                 {
                     result = false;
                 }
@@ -77,7 +79,7 @@ namespace strings
             var leng = initialWord.Length;
 
             var swapped = SwapLetters(asCharArr, leng);
-            var deleted = DeleteLetters(asStringBuilder, leng);
+            var deleted = DeleteLetters(initialWord, leng);
             var replaced = ReplaceLetters(asStringBuilder, leng,alphabet, asCharArr);
             var added = AddLetters(asStringBuilder, leng, alphabet, asCharArr);
 
@@ -130,13 +132,15 @@ namespace strings
             return swapped;
         }
 
-        private static List<string> DeleteLetters(StringBuilder sb, int length )
+        private static List<string> DeleteLetters(string initialWord, int length )
         {
             var deleted = new List<string>();
-
-            for (int i = 0; i < length; i++)
+            StringBuilder copy = new StringBuilder(initialWord);
+            for (int i = 0; i < length-1; i++)
             {
-                deleted.Add( sb.Remove(i, 1).ToString());
+                copy = new StringBuilder(initialWord);
+                var newWord = copy.Remove(i, 1).ToString();
+                deleted.Add( newWord );
             }
 
             return deleted;
@@ -145,7 +149,7 @@ namespace strings
         private static List<string> ReplaceLetters(StringBuilder sb, int length, string alphabet, char[] asCharArr)
         {
             var replaced = new List<string>();
-  
+
             for (int i = 0; i < length; i++)
             {
                 foreach (var ch in alphabet)
@@ -153,6 +157,9 @@ namespace strings
                     if (ch != asCharArr[i])
                     {
                         replaced.Add( sb.Replace(asCharArr[i], ch, i, 1).ToString());
+
+                        // reset string back
+                        sb.Replace(ch, asCharArr[i], i, 1);
                     }
                 }
             }
@@ -164,11 +171,14 @@ namespace strings
         {
             var added = new List<string>();
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i <= length; i++)
             {
                 foreach (var ch in alphabet)
                 {
-                    added.Add(sb.Append(ch.ToString(), i, 1).ToString());
+                    added.Add(sb.Insert(i, ch.ToString()).ToString());
+                    
+                    // reset string
+                    sb.Remove(i, 1);
                 }
 
             }
