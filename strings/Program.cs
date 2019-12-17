@@ -13,6 +13,8 @@ namespace strings
             var isPalindrome = StringUtils.IsPalindrome(inputStr);
             Console.WriteLine("Is your string palindrome? " + (isPalindrome ? "yes" : "no"));
 
+            Console.WriteLine("Task 2:\nPrint FooBar");
+            StringUtils.PrintFooBar();
 
             Console.WriteLine("\nTask 3:\nPlease enter text for which email addresses need to be removed (if you press Enter, default text will be used):");
             inputStr = Console.ReadLine();
